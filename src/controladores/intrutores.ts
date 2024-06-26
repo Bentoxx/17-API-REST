@@ -5,7 +5,7 @@ type TInstrutores = { //CRIAÇÃO DE TIPO GLOBAL PARA PADRONIZAR O ARRAY INSTRUT
     nome: string
     email: string
 }
-
+let proximoIdentificador = 3 //Declaração de variável para geração de ID automático
 const instrutores: TInstrutores[] = [
     {
         id: 1,
@@ -37,7 +37,7 @@ export function detalhar (req: Request, res: Response){
 export function cadastrar (req: Request, res: Response){
     const { nome, email } = req.body //Desestruturando os dados recebidos no corpo da requisição
     const novoInstrutor = {//Definição de variável para armazenamento dos dados do copor da requisição
-        id: 3,
+        id: proximoIdentificador++, //a variável atribui um valor e é incrementada em 1 após a atribuição
         nome,
         email
     }
