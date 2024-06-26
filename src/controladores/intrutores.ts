@@ -67,3 +67,34 @@ export function atualizar (req: Request, res: Response){
     //Retorno de mensagem No Content
     return res.status(204).send()
 }
+//Declaração de função para atualização parcial de cadastro de um intrutor, vai utilizar o verbo PATCH
+export function atualizarEmail (req: Request, res: Response){
+    const { id } = req.params 
+    const { email } = req.body //Desestruturando os dados recebidos no corpo da requisição
+    const instrutor = instrutores.find((item) => {
+        return item.id === Number(id) //Aqui se converte o ID de string para number
+    })
+    if(!instrutor){//verificação da existencia do instrutor informado na requisição
+        return res.status(404).json({
+            mensagem: 'Instrutor(a) não encontrado(a)!'
+        })
+    }
+    //Atribuição de novos dados
+    instrutor.email = email
+    //Retorno de mensagem No Content
+    return res.status(204).send()
+}
+//Declaração de função para deletar cadastro de um intrutor, vai utilizar o verbo DELETE
+export function excluir (req: Request, res: Response){
+    const { id } = req.params 
+    const instrutorIndice = instrutores.findIndex((item) => {//utilizando o método de busca de índice
+        return item.id === Number(id) //Aqui se converte o ID de string para number
+    })
+    if(instrutorIndice === -1){//verificação da existencia do instrutor informado na requisição
+        return res.status(404).json({
+        mensagem: 'Instrutor(a) não encontrado(a)!'
+    })
+}
+    instrutores.splice(instrutorIndice, 1)//Esse método de array vai excluir os dados no indice informado
+    return res.status(204).send()
+}
