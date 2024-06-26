@@ -21,7 +21,9 @@ const instrutores: TInstrutores[] = [
 //declaração de função para listagem em rota de todos os instrutores com o status 200
 export function listar (req: Request, res: Response){
     return res.status(200).json(instrutores)
-}//declaração de função para detalhamento em rota de um determinado instrutor com o status 200
+}
+
+//declaração de função para detalhamento em rota de um determinado instrutor com o status 200
 export function detalhar (req: Request, res: Response){
     const { id } = req.params
     const instrutor = instrutores.find((item) => {
@@ -33,7 +35,9 @@ export function detalhar (req: Request, res: Response){
         })
     }
     return res.status(200).json(instrutor)
-}//Declaração de função para cadastro de instrutor em rota
+}
+
+//Declaração de função para cadastro de instrutor, vai utilizar o método PUSH
 export function cadastrar (req: Request, res: Response){
     const { nome, email } = req.body //Desestruturando os dados recebidos no corpo da requisição
     const novoInstrutor = {//Definição de variável para armazenamento dos dados do copor da requisição
@@ -43,4 +47,23 @@ export function cadastrar (req: Request, res: Response){
     }
     instrutores.push(novoInstrutor)//Adicionando os dados recebidos pelo corpo da requisição no array pelo método push
     return res.status(201).json(novoInstrutor)
+}
+
+//Declaração de função para atualização de cadastro de um intrutor, vai utilizar o verbo PUT
+export function atualizar (req: Request, res: Response){
+    const { id } = req.params 
+    const { nome, email } = req.body //Desestruturando os dados recebidos no corpo da requisição
+    const instrutor = instrutores.find((item) => {
+        return item.id === Number(id) //Aqui se converte o ID de string para number
+    })
+    if(!instrutor){//verificação da existencia do instrutor informado na requisição
+        return res.status(404).json({
+            mensagem: 'Instrutor(a) não encontrado(a)!'
+        })
+    }
+    //Atribuição de novos dados
+    instrutor.nome = nome
+    instrutor.email = email
+    //Retorno de mensagem No Content
+    return res.status(204).send()
 }
