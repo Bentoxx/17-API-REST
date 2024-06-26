@@ -33,4 +33,14 @@ export function detalhar (req: Request, res: Response){
         })
     }
     return res.status(200).json(instrutor)
+}//Declaração de função para cadastro de instrutor em rota
+export function cadastrar (req: Request, res: Response){
+    const { nome, email } = req.body //Desestruturando os dados recebidos no corpo da requisição
+    const novoInstrutor = {//Definição de variável para armazenamento dos dados do copor da requisição
+        id: 3,
+        nome,
+        email
+    }
+    instrutores.push(novoInstrutor)//Adicionando os dados recebidos pelo corpo da requisição no array pelo método push
+    return res.status(201).json(novoInstrutor)
 }
