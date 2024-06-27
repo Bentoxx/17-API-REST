@@ -12,10 +12,12 @@ type TInstrutores = {
 
 type TBancodedados = {
     proximoIdentificador: number
+    proximoIdentificadorAula: number
     instrutores: TInstrutores[]
 }
 const bancodedados: TBancodedados = {
     proximoIdentificador: 3,
+    proximoIdentificadorAula: 2,
     instrutores: [
     {
         id: 1,
